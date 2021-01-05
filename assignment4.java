@@ -1,5 +1,12 @@
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Iterator;
+import java.util.Map;
+
 
 public class assignment4 {
     public HashMap<String, HashMap<String, Integer>> nodes = new HashMap<String, HashMap<String, Integer>>(400);
