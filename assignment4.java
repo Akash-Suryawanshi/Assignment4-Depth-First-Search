@@ -55,8 +55,7 @@ public class assignment4 {
             }
             nodes++;
 //            System.out.println(name);
-            HashMap<String, Integer> list = new HashMap<String,Integer>();
-            Graph.nodes.put(name, list);
+            Graph.nodes.put(name, null);
             line = reader.readLine();
         }
         Graph.V = nodes;
@@ -105,8 +104,27 @@ public class assignment4 {
                 }
             }
             int weight = Integer.parseInt(w);
-            /*HashMap<String, Integer> val1 = */Graph.nodes.get(a).putIfAbsent(b, weight);
-            /*HashMap<String, Integer> val2 = */Graph.nodes.get(b).putIfAbsent(a, weight);
+            HashMap<String, Integer> map1 = new HashMap<String, Integer>();
+            map1.put(b, weight);
+            Graph.nodes.putIfAbsent(a, map1);
+            HashMap<String, Integer> map12 = new HashMap<String, Integer>();
+            map1.put(a, weight);
+            Graph.nodes.putIfAbsent(b, map1);
+
+//            if (Graph.nodes.get(a)==null) {
+//                HashMap<String, Integer> map = new HashMap<String, Integer>();
+//                map.put(b, weight);
+//                Graph.nodes.put(a, map);
+//            }
+//            if (Graph.nodes.get(b)==null) {
+//                HashMap<String, Integer> map = new HashMap<String, Integer>();
+//                map.put(a, weight);
+//                Graph.nodes.put(b, map);
+//            }
+
+
+            /*HashMap<String, Integer> val2 = */
+//            Graph.nodes.get(b).putIfAbsent(a, weight);
 //            val1.putIfAbsent(b, weight);
 //            val2.putIfAbsent(a, weight);
 //            map1.put(b, weight);
