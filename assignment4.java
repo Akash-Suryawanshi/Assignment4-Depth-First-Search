@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.file.Files;
 import java.util.*;
 
 public class assignment4 {
@@ -8,7 +7,8 @@ public class assignment4 {
 
     public void average() {
         float z = (2 * E) / V;
-        System.out.println(z);
+        String rounded = String.format("%.2f", z);
+        System.out.println(rounded);
     }
 
     public void rank() {
@@ -60,6 +60,9 @@ public class assignment4 {
         }
         Graph.V = nodes;
         reader.close();
+
+        // ADDING EDGES
+
         BufferedReader reader2 = new BufferedReader(new FileReader("edges.csv"));
         reader2.readLine();
         String line2 = reader2.readLine();
@@ -78,10 +81,8 @@ public class assignment4 {
                     if (word[k]=='"') {
                         no_of_quotation++;
                     }
-                    else if (word[k]==',') {
-                        if (no_of_quotation%2==0) {
-                            no_of_comma++;
-                        }
+                    else if (word[k]==',' && no_of_quotation%2==0) {
+                        no_of_comma++;
                     }
                     else {
                         if (no_of_comma==0) {
@@ -106,10 +107,10 @@ public class assignment4 {
             int weight = Integer.parseInt(w);
             HashMap<String, Integer> map1 = new HashMap<String, Integer>();
             map1.put(b, weight);
-            Graph.nodes.putIfAbsent(a, map1);
-            HashMap<String, Integer> map12 = new HashMap<String, Integer>();
-            map1.put(a, weight);
-            Graph.nodes.putIfAbsent(b, map1);
+//            Graph.nodes.putIfAbsent(a, map1);
+            HashMap<String, Integer> map2 = new HashMap<String, Integer>();
+            map2.put(a, weight);
+//            Graph.nodes.putIfAbsent(b, map2);
 
 //            if (Graph.nodes.get(a)==null) {
 //                HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -137,9 +138,12 @@ public class assignment4 {
             edges++;
         }
         reader2.close();
-        Set<String> mapping = Graph.nodes.keySet();
-        Collection<HashMap<String, Integer>> set= Graph.nodes.values();
-        System.out.println(mapping.size());
+        Graph.E = edges;
+        int mapping = Graph.nodes.size();
+//        Collection<HashMap<String, Integer>> set= Graph.nodes.values();
+        System.out.println(edges);
+        System.out.println(mapping);
+        Graph.average();
     }
 }
 // Hellcat / Patsy Walker
