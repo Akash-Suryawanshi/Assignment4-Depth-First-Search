@@ -160,15 +160,16 @@ public class assignment4 {
 //        Collection<HashMap<String, Integer>> set= Graph.nodes.values();
 //        System.out.println(edges);
 //        System.out.println(mapping);
-        if (function_name=="average") {
+        if (function_name.equals("average")) {
             Graph.average();
         }
-        else if (function_name=="rank"){
+        else if (function_name.equals("rank")){
             Graph.rank();
         }
-        else if (function_name=="independent_storylines_dfs"){
+        else if (function_name.equals("independent_storylines_dfs")){
             Graph.independent_storylines_dfs();
         }
+        s.close();
     }
 }
 // Hellcat / Patsy Walker
