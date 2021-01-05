@@ -17,15 +17,25 @@ public class assignment4 {
         String rounded = String.format("%.2f", z);
         System.out.println(rounded);
     }
+    public void independent_storylines_dfs(){
+
+    }
+
+//    public void read_input
 
     public void rank() {
 
     }
 
     public static void main(String[] args) throws Exception {
+        Scanner s = new Scanner(System.in);
+        String[] input = s.nextLine().split(" ");
+        String nodes_file = input[0];
+        String edges_file = input[1];
+        String function_name = input[2];
         assignment4 Graph = new assignment4();
         int nodes = 0;
-        BufferedReader reader = new BufferedReader(new FileReader("nodes.csv"));
+        BufferedReader reader = new BufferedReader(new FileReader(nodes_file));
         reader.readLine();
         String line = reader.readLine();
         while (line != null) {
@@ -70,7 +80,7 @@ public class assignment4 {
 
         // ADDING EDGES
 
-        BufferedReader reader2 = new BufferedReader(new FileReader("edges.csv"));
+        BufferedReader reader2 = new BufferedReader(new FileReader(edges_file));
         reader2.readLine();
         String line2 = reader2.readLine();
         int edges = 0;
@@ -148,9 +158,17 @@ public class assignment4 {
         Graph.E = edges;
         int mapping = Graph.nodes.size();
 //        Collection<HashMap<String, Integer>> set= Graph.nodes.values();
-        System.out.println(edges);
-        System.out.println(mapping);
-        Graph.average();
+//        System.out.println(edges);
+//        System.out.println(mapping);
+        if (function_name=="average") {
+            Graph.average();
+        }
+        else if (function_name=="rank"){
+            Graph.rank();
+        }
+        else if (function_name=="independent_storylines_dfs"){
+            Graph.independent_storylines_dfs();
+        }
     }
 }
 // Hellcat / Patsy Walker
