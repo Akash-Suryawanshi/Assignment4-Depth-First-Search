@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 
-public class assignment4 {
+public class A4_2019CS50416 {
     public HashMap<String, HashMap<String, Integer>> nodes = new HashMap<String, HashMap<String, Integer>>(400);
     public float V, E;
 
@@ -29,11 +29,11 @@ public class assignment4 {
 
     public static void main(String[] args) throws Exception {
         Scanner s = new Scanner(System.in);
-        String[] input = s.nextLine().split(" ");
-        String nodes_file = input[0];
-        String edges_file = input[1];
-        String function_name = input[2];
-        assignment4 Graph = new assignment4();
+//        String[] input = s.nextLine().split(" ");
+        String nodes_file = args[0];
+        String edges_file = args[1];
+        String function_name = args[2];
+        A4_2019CS50416 Graph = new A4_2019CS50416();
         int nodes = 0;
         BufferedReader reader = new BufferedReader(new FileReader(nodes_file));
         reader.readLine();
