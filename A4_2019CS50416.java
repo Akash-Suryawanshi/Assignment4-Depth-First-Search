@@ -1,21 +1,39 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Vector;
-import java.util.LinkedList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 
 public class A4_2019CS50416 {
     public HashMap<String, HashMap<String, Integer>> nodes = new HashMap<String, HashMap<String, Integer>>(400);
+    public ArrayList<str_int> arr_nodes = new ArrayList<>();
     public float V, E;
+
+    class str_int{
+        String string;
+        int integer;
+        str_int(String my_str, int my_int) {
+            this.string = my_str;
+            this.integer = my_int;
+        }
+    }
 
     public void average() {
         float z = (2 * E) / V;
         String rounded = String.format("%.2f", z);
         System.out.println(rounded);
+        iterate_map();
+    }
+
+    public void iterate_map() {
+        for (Map.Entry<String,HashMap<String, Integer>> entry : nodes.entrySet()) {
+            int t = 0;
+            for (Map.Entry<String, Integer> node: entry.getValue().entrySet()) {
+                t = t + node.getValue();
+            }
+//            System.out.println(entry.toString());
+            str_int obj = new str_int(entry.toString(), t);
+            arr_nodes.add(obj);
+        }
+        System.out.println(arr_nodes.get(0));
     }
     public void independent_storylines_dfs(){
 
@@ -28,7 +46,6 @@ public class A4_2019CS50416 {
     }
 
     public static void main(String[] args) throws Exception {
-        Scanner s = new Scanner(System.in);
 //        String[] input = s.nextLine().split(" ");
         String nodes_file = args[0];
         String edges_file = args[1];
@@ -122,23 +139,31 @@ public class A4_2019CS50416 {
                 }
             }
             int weight = Integer.parseInt(w);
-            HashMap<String, Integer> map1 = new HashMap<String, Integer>();
-            map1.put(b, weight);
+//            HashMap<String, Integer> map1 = new HashMap<String, Integer>();
+//            map1.put(b, weight);
 //            Graph.nodes.putIfAbsent(a, map1);
-            HashMap<String, Integer> map2 = new HashMap<String, Integer>();
-            map2.put(a, weight);
+//            HashMap<String, Integer> map2 = new HashMap<String, Integer>();
+//            map2.put(a, weight);
 //            Graph.nodes.putIfAbsent(b, map2);
 
-//            if (Graph.nodes.get(a)==null) {
-//                HashMap<String, Integer> map = new HashMap<String, Integer>();
-//                map.put(b, weight);
-//                Graph.nodes.put(a, map);
-//            }
-//            if (Graph.nodes.get(b)==null) {
-//                HashMap<String, Integer> map = new HashMap<String, Integer>();
-//                map.put(a, weight);
-//                Graph.nodes.put(b, map);
-//            }
+            if (Graph.nodes.get(a)==null) {
+                HashMap<String, Integer> map = new HashMap<String, Integer>();
+                map.put(b, weight);
+                Graph.nodes.put(a, map);
+            }
+            else {
+                HashMap map = Graph.nodes.get(a);
+                map.put(b, weight);
+            }
+            if (Graph.nodes.get(b)==null) {
+                HashMap<String, Integer> map = new HashMap<String, Integer>();
+                map.put(a, weight);
+                Graph.nodes.put(b, map);
+            }
+            else {
+                HashMap map = Graph.nodes.get(b);
+                map.put(a, weight);
+            }
 
 
             /*HashMap<String, Integer> val2 = */
@@ -156,20 +181,23 @@ public class A4_2019CS50416 {
         }
         reader2.close();
         Graph.E = edges;
-        int mapping = Graph.nodes.size();
-//        Collection<HashMap<String, Integer>> set= Graph.nodes.values();
-//        System.out.println(edges);
+//        Set mapping= Graph.nodes.keySet();
+//        HashMap<String, Integer> set = Graph.nodes.get("Black Panther / T'chal");
+//        System.out.println(set.size());
 //        System.out.println(mapping);
         if (function_name.equals("average")) {
             Graph.average();
         }
+        else if (function_name.equals("average")) {
+            Graph.iterate_map();
+        }
+
         else if (function_name.equals("rank")){
             Graph.rank();
         }
         else if (function_name.equals("independent_storylines_dfs")){
             Graph.independent_storylines_dfs();
         }
-        s.close();
     }
 }
 // Hellcat / Patsy Walker
