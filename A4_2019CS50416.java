@@ -1,5 +1,10 @@
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 public class A4_2019CS50416 {
@@ -20,21 +25,77 @@ public class A4_2019CS50416 {
         float z = (2 * E) / V;
         String rounded = String.format("%.2f", z);
         System.out.println(rounded);
-        iterate_map();
     }
 
     public void iterate_map() {
-        for (Map.Entry<String,HashMap<String, Integer>> entry : nodes.entrySet()) {
+        for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
             int t = 0;
             for (Map.Entry<String, Integer> node: entry.getValue().entrySet()) {
                 t = t + node.getValue();
             }
-//            System.out.println(entry.toString());
-            str_int obj = new str_int(entry.toString(), t);
+//            System.out.println(t);
+//            System.out.println(entry.getKey());
+            str_int obj = new str_int(entry.getKey(), t);
             arr_nodes.add(obj);
         }
-        System.out.println(arr_nodes.get(0));
+//        System.out.println(arr_nodes.get(0).string);
     }
+     public void mergesort(ArrayList<str_int> arrayList, int p, int r) {
+        if (p<r) {
+            int q = (p+r)/2;
+            mergesort(arrayList, p, q);
+            mergesort(arrayList, q+1, r);
+            merge(arrayList, p, q, r);
+        }
+     }
+
+     public void merge(ArrayList<str_int> arrayList, int p, int q, int r){
+        ArrayList<str_int> my_new_array = new ArrayList<>();
+        int lt = p;
+        int rt = q+1;
+        int u=0, v=p;
+        while (lt<=q && rt <= r) {
+            str_int left = arrayList.get(lt);
+            str_int right = arrayList.get(rt);
+            if (left.integer<=right.integer) {
+                if (left.integer==right.integer) {
+                    String str1 = left.string;
+                    String str2 = right.string;
+                    int val = str1.compareTo(str2);
+                    if (val<0) {
+                        my_new_array.add(left);
+                        lt++;
+                    }
+                    else {
+                        my_new_array.add(right);
+                        rt++;
+                    }
+                }
+                else {
+                    my_new_array.add(left);
+                    lt++;
+                }
+            }
+            else {
+                my_new_array.add(right);
+                rt++;
+            }
+        }
+         while(lt<=q){
+             my_new_array.add(arrayList.get(lt));
+             lt++;
+         }
+         while(rt<=r){
+             my_new_array.add(arrayList.get(rt));
+             rt++;
+         }
+         while (u<my_new_array.size()) {
+             arrayList.set(v, my_new_array.get(u));
+             u++;
+             v++;
+         }
+     }
+
     public void independent_storylines_dfs(){
 
     }
@@ -42,7 +103,14 @@ public class A4_2019CS50416 {
 //    public void read_input
 
     public void rank() {
-
+        iterate_map();
+        int j = arr_nodes.size();
+//        System.out.println(j);
+        mergesort(arr_nodes, 0, j-1);
+        for (int t = j-1;t>0;t--) {
+            System.out.print(arr_nodes.get(t).string+",");
+        }
+        System.out.print(arr_nodes.get(0).string);
     }
 
     public static void main(String[] args) throws Exception {
