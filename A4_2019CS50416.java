@@ -1,7 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Vector;
-import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +8,9 @@ import java.util.Map;
 public class A4_2019CS50416 {
     public HashMap<String, HashMap<String, Integer>> nodes = new HashMap<String, HashMap<String, Integer>>(400);
     public ArrayList<str_int> arr_nodes = new ArrayList<>();
+    public HashMap<String, Boolean> visited = new HashMap<String, Boolean>(400);
+    public ArrayList<ArrayList<String>> components = new ArrayList<ArrayList<String>>();
+    public ArrayList<String> one_component = new ArrayList<String>();
     public float V, E;
 
     class str_int{
@@ -41,6 +42,12 @@ public class A4_2019CS50416 {
                 str_int obj = new str_int(entry.getKey(), 0);
                 arr_nodes.add(obj);
             }
+        }
+    }
+
+    public void initialize() {
+        for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
+            visited.put(entry.getKey(), false);
         }
     }
 
@@ -101,7 +108,153 @@ public class A4_2019CS50416 {
      }
 
     public void independent_storylines_dfs(){
+        DFS();
+        mergesort_components(components, 0, components.size()-1);
+        for (ArrayList<String> component:components) {
+            mergesort_component(component, 0, component.size()-1);
+        }
+        print();
+    }
 
+    public void print() {
+        for (int i = components.size()-1; i > -1; i--) {
+            print_component(components.get(i));
+            System.out.println();
+        }
+    }
+
+    public void print_component(ArrayList<String> component){
+        System.out.println(components.get(0).size());
+        for (int i = component.size()-1;i>0;i--) {
+            System.out.print(component.get(i)+",");
+        }
+        System.out.print(component.get(0));
+    }
+
+    public void sort_components() {
+    }
+
+    public void merge_component(ArrayList<String> component, int p, int q, int r) {
+        ArrayList<String> my_new_array = new ArrayList<>();
+        int lt = p;
+        int rt = q+1;
+        int u=0, v=p;
+        while (lt<=q && rt <= r) {
+            String left = component.get(lt);
+            String right = component.get(rt);
+            if (left.compareTo(right)<0) {
+                my_new_array.add(left);
+                lt++;
+            }
+            else {
+                my_new_array.add(right);
+                rt++;
+            }
+        }
+        while(lt<=q){
+            my_new_array.add(component.get(lt));
+            lt++;
+        }
+        while(rt<=r){
+            my_new_array.add(component.get(rt));
+            rt++;
+        }
+        while (u<my_new_array.size()) {
+            component.set(v, my_new_array.get(u));
+            u++;
+            v++;
+        }
+    }
+    public void mergesort_component(ArrayList<String> component, int p, int r) {
+        if (p<r) {
+            int q = (p+r)/2;
+            mergesort_component(component, p, q);
+            mergesort_component(component, q+1, r);
+            merge_component(component, p, q, r);
+        }
+    }
+
+    public void mergesort_components(ArrayList<ArrayList<String>> components, int p, int r) {
+        if (p<r) {
+            int q = (p+r)/2;
+            mergesort_components(components, p, q);
+            mergesort_components(components, q+1, r);
+            merge_components(components, p, q, r);
+        }
+    }
+
+    public void merge_components(ArrayList<ArrayList<String>> components, int p, int q, int r) {
+        ArrayList<ArrayList<String>> my_new_array = new ArrayList<>();
+        int lt = p;
+        int rt = q+1;
+        int u=0, v=p;
+        while (lt<=q && rt <= r) {
+            ArrayList<String> left = components.get(lt);
+            ArrayList<String> right = components.get(rt);
+            if (left.size()<=right.size()) {
+                if (left.size()==right.size()) {
+                    int a = left.size();
+                    int i = 0;
+                    while (i<a) {
+                        if (left.get(i).compareTo(right.get(i))==0){}
+                        else if (left.get(i).compareTo(right.get(i))<0) {
+                            my_new_array.add(left);
+                            break;
+                        }
+                        else {
+                            my_new_array.add(right);
+                            break;
+                        }
+                        i++;
+                    }
+                }
+                else {
+                    my_new_array.add(left);
+                    lt++;
+                }
+            }
+            else {
+                my_new_array.add(right);
+                rt++;
+            }
+        }
+        while(lt<=q){
+            my_new_array.add(components.get(lt));
+            lt++;
+        }
+        while(rt<=r){
+            my_new_array.add(components.get(rt));
+            rt++;
+        }
+        while (u<my_new_array.size()) {
+            components.set(v, my_new_array.get(u));
+            u++;
+            v++;
+        }
+    }
+
+    public void DFS() {
+        initialize();
+        for (Map.Entry<String, HashMap<String, Integer>> hashmap_of_node : nodes.entrySet()) {
+            if (!visited.get(hashmap_of_node.getKey())) {
+                do_DFS(hashmap_of_node.getKey());
+                components.add(one_component);
+                System.out.println(one_component.size());
+                System.out.println(components.size());
+                one_component.removeAll(one_component);
+            }
+        }
+    }
+
+    public ArrayList<String> do_DFS(String node) {
+        visited.put(node, true);
+        one_component.add(node);
+        HashMap<String, Integer> neighbours = nodes.get(node);
+        for (String neighbour : neighbours.keySet()) {
+            if (!visited.get(neighbour)) {
+                do_DFS(neighbour);
+            }
+        }
     }
 
     public void rank() {
@@ -119,6 +272,9 @@ public class A4_2019CS50416 {
         String nodes_file = args[0];
         String edges_file = args[1];
         String function_name = args[2];
+//        String nodes_file = args[0];
+//        String edges_file = args[1];
+//        String function_name = args[2];
         A4_2019CS50416 Graph = new A4_2019CS50416();
         int nodes = 0;
         BufferedReader reader = new BufferedReader(new FileReader(nodes_file));
@@ -234,6 +390,9 @@ public class A4_2019CS50416 {
 
         else if (function_name.equals("rank")){
             Graph.rank();
+        }
+        else if (function_name.equals("DFS")){
+            Graph.DFS();
         }
         else if (function_name.equals("independent_storylines_dfs")){
             Graph.independent_storylines_dfs();
