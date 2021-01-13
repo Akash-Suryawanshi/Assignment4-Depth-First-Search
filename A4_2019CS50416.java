@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Formattable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -238,15 +239,17 @@ public class A4_2019CS50416 {
         for (Map.Entry<String, HashMap<String, Integer>> hashmap_of_node : nodes.entrySet()) {
             if (!visited.get(hashmap_of_node.getKey())) {
                 do_DFS(hashmap_of_node.getKey());
-                components.add(one_component);
-                System.out.println(one_component.size());
-                System.out.println(components.size());
+                ArrayList<String> temp = new ArrayList<String>();
+                for (String s: one_component) {
+                    temp.add(s);
+                }
+                components.add(temp);
                 one_component.removeAll(one_component);
             }
         }
     }
 
-    public ArrayList<String> do_DFS(String node) {
+    public void do_DFS(String node) {
         visited.put(node, true);
         one_component.add(node);
         HashMap<String, Integer> neighbours = nodes.get(node);
