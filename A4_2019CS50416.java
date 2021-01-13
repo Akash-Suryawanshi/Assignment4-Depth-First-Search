@@ -30,11 +30,18 @@ public class A4_2019CS50416 {
     public void iterate_map() {
         for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
             int t = 0;
-            for (Map.Entry<String, Integer> node: entry.getValue().entrySet()) {
-                t = t + node.getValue();
+            HashMap<String, Integer> my_values = entry.getValue();
+            if (my_values!=null){
+                for (Map.Entry<String, Integer> node : my_values.entrySet()) {
+                    t = t + node.getValue();
+                }
+                str_int obj = new str_int(entry.getKey(), t);
+                arr_nodes.add(obj);
             }
-            str_int obj = new str_int(entry.getKey(), t);
-            arr_nodes.add(obj);
+            else {
+                str_int obj = new str_int(entry.getKey(), 0);
+                arr_nodes.add(obj);
+            }
         }
     }
 
