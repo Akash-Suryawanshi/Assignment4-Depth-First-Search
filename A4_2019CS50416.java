@@ -6,12 +6,12 @@ import java.util.Map;
 
 
 public class A4_2019CS50416 {
-    public HashMap<String, HashMap<String, Integer>> nodes = new HashMap<String, HashMap<String, Integer>>(400);
+    private HashMap<String, HashMap<String, Integer>> nodes = new HashMap<String, HashMap<String, Integer>>(400);
 //    public ArrayList<str_int> arr_nodes = new ArrayList<>();
-    public HashMap<String, Boolean> visited = new HashMap<String, Boolean>(400);
-    public ArrayList<ArrayList<String>> components = new ArrayList<ArrayList<String>>();
-    public ArrayList<String> one_component = new ArrayList<String>();
-    public float V, E;
+    private HashMap<String, Boolean> visited = new HashMap<String, Boolean>(400);
+    private ArrayList<ArrayList<String>> components = new ArrayList<ArrayList<String>>();
+    private ArrayList<String> one_component = new ArrayList<String>();
+    private float V, E;
 
     class str_int{
         String string;
@@ -22,11 +22,11 @@ public class A4_2019CS50416 {
         }
     }
 
-    public void average() {
-        float z = (2 * E) / V;
-        String rounded = String.format("%.2f", z);
-        System.out.println(rounded);
-    }
+//    public void average() {
+//        float z = (2 * E) / V;
+//        String rounded = String.format("%.2f", z);
+//        System.out.println(rounded);
+//    }
 
 //    public void iterate_map() {
 //        for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
