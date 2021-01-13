@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Formattable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +7,7 @@ import java.util.Map;
 
 public class A4_2019CS50416 {
     public HashMap<String, HashMap<String, Integer>> nodes = new HashMap<String, HashMap<String, Integer>>(400);
-    public ArrayList<str_int> arr_nodes = new ArrayList<>();
+//    public ArrayList<str_int> arr_nodes = new ArrayList<>();
     public HashMap<String, Boolean> visited = new HashMap<String, Boolean>(400);
     public ArrayList<ArrayList<String>> components = new ArrayList<ArrayList<String>>();
     public ArrayList<String> one_component = new ArrayList<String>();
@@ -29,22 +28,22 @@ public class A4_2019CS50416 {
         System.out.println(rounded);
     }
 
-    public void iterate_map() {
-        for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
-            int t = 0;
-            if (entry.getValue()!=null){
-                for (Map.Entry<String, Integer> node : entry.getValue().entrySet()) {
-                    t = t + node.getValue();
-                }
-                str_int obj = new str_int(entry.getKey(), t);
-                arr_nodes.add(obj);
-            }
-            else {
-                str_int obj = new str_int(entry.getKey(), 0);
-                arr_nodes.add(obj);
-            }
-        }
-    }
+//    public void iterate_map() {
+//        for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
+//            int t = 0;
+//            if (entry.getValue()!=null){
+//                for (Map.Entry<String, Integer> node : entry.getValue().entrySet()) {
+//                    t = t + node.getValue();
+//                }
+//                str_int obj = new str_int(entry.getKey(), t);
+//                arr_nodes.add(obj);
+//            }
+//            else {
+//                str_int obj = new str_int(entry.getKey(), 0);
+//                arr_nodes.add(obj);
+//            }
+//        }
+//    }
 
     public void initialize() {
         for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
@@ -115,6 +114,8 @@ public class A4_2019CS50416 {
             mergesort_component(component, 0, component.size()-1);
         }
         print();
+        components.removeAll(components);
+        one_component.removeAll(one_component);
     }
 
     public void print() {
@@ -130,9 +131,6 @@ public class A4_2019CS50416 {
             System.out.print(component.get(i)+",");
         }
         System.out.print(component.get(0));
-    }
-
-    public void sort_components() {
     }
 
     public void merge_component(ArrayList<String> component, int p, int q, int r) {
@@ -260,16 +258,16 @@ public class A4_2019CS50416 {
         }
     }
 
-    public void rank() {
-        iterate_map();
-        int j = arr_nodes.size();
-//        System.out.println(j);
-        mergesort(arr_nodes, 0, j-1);
-        for (int t = j-1;t>0;t--) {
-            System.out.print(arr_nodes.get(t).string+",");
-        }
-        System.out.print(arr_nodes.get(0).string);
-    }
+//    public void rank() {
+//        iterate_map();
+//        int j = arr_nodes.size();
+////        System.out.println(j);
+//        mergesort(arr_nodes, 0, j-1);
+//        for (int t = j-1;t>0;t--) {
+//            System.out.print(arr_nodes.get(t).string+",");
+//        }
+//        System.out.print(arr_nodes.get(0).string);
+//    }
 
     public static void main(String[] args) throws Exception {
         String nodes_file = args[0];
@@ -387,17 +385,17 @@ public class A4_2019CS50416 {
         }
         reader2.close();
         Graph.E = edges;
-        if (function_name.equals("average")) {
-            Graph.average();
-        }
-
-        else if (function_name.equals("rank")){
-            Graph.rank();
-        }
-        else if (function_name.equals("DFS")){
-            Graph.DFS();
-        }
-        else if (function_name.equals("independent_storylines_dfs")){
+//        if (function_name.equals("average")) {
+//            Graph.average();
+//        }
+//
+//        else if (function_name.equals("rank")){
+//            Graph.rank();
+//        }
+//        else if (function_name.equals("DFS")){
+//            Graph.DFS();
+//        }
+        if (function_name.equals("independent_storylines_dfs")){
             Graph.independent_storylines_dfs();
         }
     }
