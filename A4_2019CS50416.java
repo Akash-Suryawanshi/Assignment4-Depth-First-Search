@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class A4_2019CS50416 {
     private HashMap<String, HashMap<String, Integer>> nodes = new HashMap<String, HashMap<String, Integer>>(400);
-//    public ArrayList<str_int> arr_nodes = new ArrayList<>();
+    public ArrayList<str_int> arr_nodes = new ArrayList<>();
     private HashMap<String, Boolean> visited = new HashMap<String, Boolean>(400);
     private ArrayList<ArrayList<String>> components = new ArrayList<ArrayList<String>>();
     private ArrayList<String> one_component = new ArrayList<String>();
@@ -28,22 +28,22 @@ public class A4_2019CS50416 {
 //        System.out.println(rounded);
 //    }
 
-//    public void iterate_map() {
-//        for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
-//            int t = 0;
-//            if (entry.getValue()!=null){
-//                for (Map.Entry<String, Integer> node : entry.getValue().entrySet()) {
-//                    t = t + node.getValue();
-//                }
-//                str_int obj = new str_int(entry.getKey(), t);
-//                arr_nodes.add(obj);
-//            }
-//            else {
-//                str_int obj = new str_int(entry.getKey(), 0);
-//                arr_nodes.add(obj);
-//            }
-//        }
-//    }
+    public void iterate_map() {
+        for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
+            int t = 0;
+            if (entry.getValue()!=null){
+                for (Map.Entry<String, Integer> node : entry.getValue().entrySet()) {
+                    t = t + node.getValue();
+                }
+                str_int obj = new str_int(entry.getKey(), t);
+                arr_nodes.add(obj);
+            }
+            else {
+                str_int obj = new str_int(entry.getKey(), 0);
+                arr_nodes.add(obj);
+            }
+        }
+    }
 
     public void initialize() {
         for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
@@ -258,16 +258,16 @@ public class A4_2019CS50416 {
         }
     }
 
-//    public void rank() {
-//        iterate_map();
-//        int j = arr_nodes.size();
-////        System.out.println(j);
-//        mergesort(arr_nodes, 0, j-1);
-//        for (int t = j-1;t>0;t--) {
-//            System.out.print(arr_nodes.get(t).string+",");
-//        }
-//        System.out.print(arr_nodes.get(0).string);
-//    }
+    public void rank() {
+        iterate_map();
+        int j = arr_nodes.size();
+//        System.out.println(j);
+        mergesort(arr_nodes, 0, j-1);
+        for (int t = j-1;t>0;t--) {
+            System.out.print(arr_nodes.get(t).string+",");
+        }
+        System.out.print(arr_nodes.get(0).string);
+    }
 
     public static void main(String[] args) throws Exception {
         String nodes_file = args[0];
