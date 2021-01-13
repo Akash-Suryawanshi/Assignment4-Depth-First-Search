@@ -33,14 +33,12 @@ public class A4_2019CS50416 {
             for (Map.Entry<String, Integer> node: entry.getValue().entrySet()) {
                 t = t + node.getValue();
             }
-//            System.out.println(t);
-//            System.out.println(entry.getKey());
             str_int obj = new str_int(entry.getKey(), t);
             arr_nodes.add(obj);
         }
-//        System.out.println(arr_nodes.get(0).string);
     }
-     public void mergesort(ArrayList<str_int> arrayList, int p, int r) {
+
+    public void mergesort(ArrayList<str_int> arrayList, int p, int r) {
         if (p<r) {
             int q = (p+r)/2;
             mergesort(arrayList, p, q);
@@ -49,7 +47,7 @@ public class A4_2019CS50416 {
         }
      }
 
-     public void merge(ArrayList<str_int> arrayList, int p, int q, int r){
+    public void merge(ArrayList<str_int> arrayList, int p, int q, int r){
         ArrayList<str_int> my_new_array = new ArrayList<>();
         int lt = p;
         int rt = q+1;
@@ -100,8 +98,6 @@ public class A4_2019CS50416 {
 
     }
 
-//    public void read_input
-
     public void rank() {
         iterate_map();
         int j = arr_nodes.size();
@@ -114,7 +110,6 @@ public class A4_2019CS50416 {
     }
 
     public static void main(String[] args) throws Exception {
-//        String[] input = s.nextLine().split(" ");
         String nodes_file = args[0];
         String edges_file = args[1];
         String function_name = args[2];
@@ -127,13 +122,11 @@ public class A4_2019CS50416 {
             boolean write = false;
             String name = "";
             char[] word = line.toCharArray();
-//            System.out.println(word);
             int t = 0;
             int no_of_comma = 0;
             int no_of_quotation = 0;
             for (int j = 0; j < word.length; j++) {
                 if (no_of_comma<1) {
-//                    System.out.println(3);
                     if (word[j]=='"') {
                         no_of_quotation++;
                     }
@@ -156,7 +149,6 @@ public class A4_2019CS50416 {
                 }
             }
             nodes++;
-//            System.out.println(name);
             Graph.nodes.put(name, null);
             line = reader.readLine();
         }
@@ -174,12 +166,10 @@ public class A4_2019CS50416 {
             String b = "";
             String w = "";
             char[] word = line2.toCharArray();
-//            System.out.println(word);
             int no_of_quotation = 0;
             int no_of_comma = 0;
             for (int k = 0; k < word.length; k++) {
                 if (no_of_comma<2) {
-//                    System.out.println(3);
                     if (word[k]=='"') {
                         no_of_quotation++;
                     }
@@ -207,12 +197,6 @@ public class A4_2019CS50416 {
                 }
             }
             int weight = Integer.parseInt(w);
-//            HashMap<String, Integer> map1 = new HashMap<String, Integer>();
-//            map1.put(b, weight);
-//            Graph.nodes.putIfAbsent(a, map1);
-//            HashMap<String, Integer> map2 = new HashMap<String, Integer>();
-//            map2.put(a, weight);
-//            Graph.nodes.putIfAbsent(b, map2);
 
             if (Graph.nodes.get(a)==null) {
                 HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -232,32 +216,14 @@ public class A4_2019CS50416 {
                 HashMap map = Graph.nodes.get(b);
                 map.put(a, weight);
             }
-
-
-            /*HashMap<String, Integer> val2 = */
-//            Graph.nodes.get(b).putIfAbsent(a, weight);
-//            val1.putIfAbsent(b, weight);
-//            val2.putIfAbsent(a, weight);
-//            map1.put(b, weight);
-//            map2.put(a, weight);
-//            Graph.nodes.put(a, map1);
-//            Graph.nodes.put(b, map2);
-//            System.out.println(a+b+weight);
             line2 = reader2.readLine();
 //            Graph.nodes
             edges++;
         }
         reader2.close();
         Graph.E = edges;
-//        Set mapping= Graph.nodes.keySet();
-//        HashMap<String, Integer> set = Graph.nodes.get("Black Panther / T'chal");
-//        System.out.println(set.size());
-//        System.out.println(mapping);
         if (function_name.equals("average")) {
             Graph.average();
-        }
-        else if (function_name.equals("average")) {
-            Graph.iterate_map();
         }
 
         else if (function_name.equals("rank")){
@@ -268,6 +234,3 @@ public class A4_2019CS50416 {
         }
     }
 }
-// Hellcat / Patsy Walker
-// Hellcat / Patsy Walker
-// Helcat / Patsy Walker
