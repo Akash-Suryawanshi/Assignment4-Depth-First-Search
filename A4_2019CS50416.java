@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Scanner;
 
 
 public class A4_2019CS50416 {
@@ -22,11 +22,11 @@ public class A4_2019CS50416 {
         }
     }
 
-//    public void average() {
-//        float z = (2 * E) / V;
-//        String rounded = String.format("%.2f", z);
-//        System.out.println(rounded);
-//    }
+    public void average() {
+        float z = (2 * E) / V;
+        String rounded = String.format("%.2f", z);
+        System.out.println(rounded);
+    }
 
     public void iterate_map() {
         for (Map.Entry<String, HashMap<String, Integer>> entry : nodes.entrySet()) {
@@ -109,10 +109,10 @@ public class A4_2019CS50416 {
 
     public void independent_storylines_dfs(){
         DFS();
-        mergesort_components(components, 0, components.size()-1);
         for (ArrayList<String> component:components) {
             mergesort_component(component, 0, component.size()-1);
         }
+        mergesort_components(components, 0, components.size()-1);
         print();
         components.removeAll(components);
         one_component.removeAll(one_component);
@@ -126,7 +126,6 @@ public class A4_2019CS50416 {
     }
 
     public void print_component(ArrayList<String> component){
-        System.out.println(components.get(0).size());
         for (int i = component.size()-1;i>0;i--) {
             System.out.print(component.get(i)+",");
         }
@@ -193,18 +192,19 @@ public class A4_2019CS50416 {
             if (left.size()<=right.size()) {
                 if (left.size()==right.size()) {
                     int a = left.size();
-                    int i = 0;
-                    while (i<a) {
-                        if (left.get(i).compareTo(right.get(i))==0){}
+                    int i = a-1;
+                    while (i>=0) {
+                        if (left.get(i).compareTo(right.get(i))==0){i--;}
                         else if (left.get(i).compareTo(right.get(i))<0) {
                             my_new_array.add(left);
+                            lt++;
                             break;
                         }
                         else {
                             my_new_array.add(right);
+                            rt++;
                             break;
                         }
-                        i++;
                     }
                 }
                 else {
@@ -270,12 +270,14 @@ public class A4_2019CS50416 {
     }
 
     public static void main(String[] args) throws Exception {
-        String nodes_file = args[0];
-        String edges_file = args[1];
-        String function_name = args[2];
+        Scanner s  = new Scanner(System.in);
+        String[] line0 = s.nextLine().split(" ");
 //        String nodes_file = args[0];
 //        String edges_file = args[1];
 //        String function_name = args[2];
+        String nodes_file = line0[0];
+        String edges_file = line0[1];
+        String function_name = line0[2];
         A4_2019CS50416 Graph = new A4_2019CS50416();
         int nodes = 0;
         BufferedReader reader = new BufferedReader(new FileReader(nodes_file));
@@ -385,13 +387,13 @@ public class A4_2019CS50416 {
         }
         reader2.close();
         Graph.E = edges;
-//        if (function_name.equals("average")) {
-//            Graph.average();
-//        }
-//
-//        else if (function_name.equals("rank")){
-//            Graph.rank();
-//        }
+        if (function_name.equals("average")) {
+            Graph.average();
+        }
+
+        else if (function_name.equals("rank")){
+            Graph.rank();
+        }
 //        else if (function_name.equals("DFS")){
 //            Graph.DFS();
 //        }
